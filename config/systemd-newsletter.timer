@@ -1,0 +1,24 @@
+[Unit]
+Description=AI Newsletter Weekly Schedule
+Documentation=file://%I/docs/SCHEDULING.md
+Requires=newsletter.service
+
+[Timer]
+# Run every Monday at 9:00 AM UTC
+OnCalendar=Mon *-*-* 09:00:00
+
+# Alternative calendars (uncomment one):
+# Run every day at 9:00 AM
+# OnCalendar=*-*-* 09:00:00
+
+# Run every 12 hours
+# OnCalendar=*-*-* 00,12:00:00
+
+# Run on system startup if missed
+Persistent=true
+
+# Randomize start time by up to 5 minutes (reduces server load)
+RandomizedDelaySec=5min
+
+[Install]
+WantedBy=timers.target

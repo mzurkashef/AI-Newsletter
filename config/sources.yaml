@@ -1,0 +1,21 @@
+# AI Newsletter - Content Sources Configuration
+# Configure your newsletter and YouTube sources here
+
+# Newsletter Sources
+# Each newsletter should have a 'name' and 'url'
+newsletters:
+  - name: "Superhuman AI"
+    url: "https://superhuman.ai/newsletter"
+  - name: "The Rundown AI"
+    url: "https://www.therundown.ai"
+  - name: "DeepLearning.AI The Batch"
+    url: "https://www.deeplearning.ai/the-batch"
+
+# YouTube Channel Sources
+# Each channel should have a 'name' and 'channel_id'
+# Your Channel IDs have been configured below
+youtube_channels:
+  - name: "Lev Selector"
+    channel_id: "UCA4GfsgbI09cLzonTKryC6g"
+  - name: "IndyDevDan"
+    channel_id: "UC_x36zCEGilGpB1m-V4gmjg"

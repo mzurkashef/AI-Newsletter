@@ -1,0 +1,79 @@
+# AI Newsletter - Git Ignore Rules
+
+# Environment variables (contains secrets)
+.env
+
+# Database files
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+# Keep .gitkeep file
+!data/.gitkeep
+
+# Log files
+logs/*
+# Keep .gitkeep file
+!logs/.gitkeep
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environment
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+
+
+
+
+
+
+nul

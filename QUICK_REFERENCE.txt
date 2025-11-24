@@ -1,0 +1,500 @@
+================================================================================
+                    AI NEWSLETTER SYSTEM - QUICK REFERENCE
+================================================================================
+
+PROJECT LOCATION: C:\Users\Kashef\root.bmad\ai-newsletter
+
+================================================================================
+SETUP CHECKLIST (First Time Only)
+================================================================================
+
+[ ] 1. Install Dependencies
+   Command: pip install -r requirements.txt
+   Time: ~2 minutes
+
+[ ] 2. Create .env File with Telegram Credentials
+   Location: .env (in project root)
+   Required:
+      TELEGRAM_BOT_TOKEN=your_bot_token
+      TELEGRAM_CHAT_ID=your_chat_id
+   Time: ~2 minutes
+
+   How to get credentials:
+   - Bot Token: Talk to @BotFather on Telegram, use /newbot command
+   - Chat ID: Get from @userinfobot or API response
+
+[ ] 3. Verify Configuration Files
+   Files:
+      - config/sources.yaml (newsletters and YouTube channels)
+      - config/settings.yaml (schedule and settings)
+      - .env (credentials)
+   Status: ✅ Pre-configured, ready to use
+
+[ ] 4. Test Manual Run
+   Command: python -m src.main --log-level INFO
+   Expected: Telegram message arrives within 10 seconds
+   Time: ~30 seconds
+
+[ ] 5. Schedule for Automatic Execution
+   Command: scripts\setup-task-scheduler.bat daily
+   Requirements: Run Command Prompt as Administrator
+   Time: ~2 minutes
+
+TOTAL SETUP TIME: ~7-10 minutes
+
+================================================================================
+RUNNING THE NEWSLETTER
+================================================================================
+
+OPTION 1: Manual Execution (One-Time)
+─────────────────────────────────────
+1. Open Command Prompt
+2. Navigate: cd C:\Users\Kashef\root.bmad\ai-newsletter
+3. Activate: .\venv\Scripts\activate
+4. Run: python -m src.main --log-level INFO
+5. Check: Telegram should receive message within 10 seconds
+
+OPTION 2: Automatic Execution (Daily)
+───────────────────────────────────────
+1. Open Command Prompt as Administrator
+2. Navigate: cd C:\Users\Kashef\root.bmad\ai-newsletter
+3. Run: scripts\setup-task-scheduler.bat daily
+4. Verify: Open Task Scheduler, look for "AI Newsletter" task
+5. Monitor: Check logs\task-scheduler.log for execution status
+
+OPTION 3: Scheduled at Different Time
+──────────────────────────────────────
+1. Open Task Scheduler (Win + R, type taskschd.msc)
+2. Find "AI Newsletter" task
+3. Right-click → Properties
+4. Go to Triggers tab
+5. Edit trigger and change time
+
+================================================================================
+COMMAND REFERENCE
+================================================================================
+
+ACTIVATE ENVIRONMENT:
+   .\venv\Scripts\activate
+
+RUN NEWSLETTER (INFO logging):
+   python -m src.main --log-level INFO
+
+RUN NEWSLETTER (DEBUG logging - verbose):
+   python -m src.main --log-level DEBUG
+
+SETUP DAILY SCHEDULING:
+   scripts\setup-task-scheduler.bat daily
+
+SETUP WEEKLY SCHEDULING (Mondays):
+   scripts\setup-task-scheduler.bat monday
+
+SETUP 12-HOURLY SCHEDULING:
+   scripts\setup-task-scheduler.bat 12hourly
+
+REMOVE SCHEDULED TASK:
+   schtasks /delete /tn "AI Newsletter" /f
+
+VERIFY SCHEDULED TASK:
+   schtasks /query /tn "AI Newsletter" /v
+
+VIEW LOGS (Command Prompt):
+   type logs\newsletter.log
+
+VIEW LOGS (PowerShell - real-time):
+   Get-Content logs\newsletter.log -Wait
+
+SEARCH LOGS FOR ERRORS:
+   findstr /I "ERROR" logs\newsletter.log
+
+================================================================================
+CONFIGURATION FILES
+================================================================================
+
+FILE: .env (ENVIRONMENT VARIABLES)
+Location: Project root
+Must contain:
+   TELEGRAM_BOT_TOKEN=your_token
+   TELEGRAM_CHAT_ID=your_chat_id
+Status: REQUIRED - Create before first run
+Edit: Text editor (Notepad)
+
+FILE: config/sources.yaml (CONTENT SOURCES)
+Location: config/sources.yaml
+Purpose: Define newsletters and YouTube channels to collect from
+Pre-configured with:
+   Newsletters: Superhuman AI, The Rundown AI, DeepLearning.AI The Batch
+   YouTube: Lev Selector, IndyDevDan
+Status: OPTIONAL - Edit to customize sources
+Edit: Text editor (YAML format)
+
+FILE: config/settings.yaml (APPLICATION SETTINGS)
+Location: config/settings.yaml
+Purpose: Configure schedule, content window, AI filters
+Default: 09:00 AM daily, 7-day window, 0.7 filter threshold
+Status: OPTIONAL - Edit to customize behavior
+Edit: Text editor (YAML format)
+
+================================================================================
+PIPELINE PHASES
+================================================================================
+
+PHASE 1: CONTENT COLLECTION (10-30 seconds)
+   - Fetches from 3 newsletter sources
+   - Fetches from 2 YouTube channels
+   - Extracts video transcripts
+   - Returns: 15-20 articles
+
+PHASE 2: DUPLICATE FILTERING (< 1 second)
+   - Removes identical articles
+   - Filters out blocked/error pages
+   - Returns: ~15 unique articles
+
+PHASE 3: AI PROCESSING (< 1 second)
+   - Future: AI-powered filtering and categorization
+   - Current: Placeholder for Phase 3 expansion
+
+PHASE 4: NEWSLETTER GENERATION (< 1 second)
+   - Formats articles into message
+   - Creates separate sections for news and YouTube
+   - Adds emojis and nice formatting
+
+PHASE 5: DELIVERY (< 5 seconds)
+   - Sends HTTP POST request to Telegram API
+   - Returns message ID if successful
+   - Logs any errors for troubleshooting
+
+TOTAL TIME: ~30-40 seconds per run
+
+================================================================================
+EXPECTED OUTPUT
+================================================================================
+
+SUCCESSFUL RUN:
+────────────────
+================================================================================
+AI Newsletter Pipeline Starting
+Timestamp: 2025-11-24T03:18:09.237517
+================================================================================
+PHASE 1: Content Collection - Starting
+  - Collected 15 articles from configured sources
+PHASE 1: Content Collection - Complete
+PHASE 2: Duplicate Filtering - Starting
+  - After deduplication: 15 unique articles
+PHASE 2: Duplicate Filtering - Complete
+PHASE 3: AI Processing and Categorization - Starting
+PHASE 3: AI Processing and Categorization - Complete
+PHASE 4: Newsletter Generation - Starting
+  - Generated newsletter message (1923 chars)
+PHASE 4: Newsletter Generation - Complete
+PHASE 5: Newsletter Delivery - Starting
+  - Message sent successfully (Message ID: 19)
+PHASE 5: Newsletter Delivery - Complete
+================================================================================
+Status: SUCCESS
+All pipeline phases completed successfully
+================================================================================
+
+TELEGRAM MESSAGE WILL CONTAIN:
+────────────────────────────────
+📰 **AI Newsletter - Daily Update**
+Generated: YYYY-MM-DD HH:MM:SS UTC
+
+📰 **News Headlines:**
+1. Article Title
+   https://link-to-article.com
+
+2. Article Title
+   https://link-to-article.com
+
+🎥 **YouTube Insights:**
+1. Video Title
+   Summary: 1-2 line summary from transcript
+   Channel: Lev Selector
+   https://youtube.com/watch?v=xxxxx
+
+✅ Your AI Newsletter is running.
+
+================================================================================
+TROUBLESHOOTING QUICK GUIDE
+================================================================================
+
+PROBLEM: ImportError / ModuleNotFoundError
+SOLUTION: pip install --upgrade -r requirements.txt
+
+PROBLEM: Telegram bot token rejected (API Error: Unauthorized)
+SOLUTION:
+   1. Verify token in .env is correct (no spaces)
+   2. Copy fresh token from @BotFather
+   3. Recreate bot if needed
+
+PROBLEM: No message received on Telegram
+SOLUTION:
+   1. Run: python -m src.main --log-level DEBUG
+   2. Check for "Message sent successfully" or error messages
+   3. Verify Chat ID is correct
+   4. Check Telegram bot is member of chat/channel
+
+PROBLEM: No articles collected (0 articles)
+SOLUTION:
+   1. Run: python -m src.main --log-level DEBUG
+   2. Check URLs in config/sources.yaml are correct
+   3. Verify internet connection
+   4. Try accessing URLs in browser
+   5. Wait and retry (sources might be temporarily down)
+
+PROBLEM: Task Scheduler task failed
+SOLUTION:
+   1. Open Task Scheduler
+   2. Find "AI Newsletter" task
+   3. Right-click → View History
+   4. Check "Last Run Result" for error code
+   5. Check logs\task-scheduler.log for details
+
+PROBLEM: Python not found when running task
+SOLUTION:
+   1. Add Python to system PATH
+   2. Delete task: schtasks /delete /tn "AI Newsletter" /f
+   3. Recreate task: scripts\setup-task-scheduler.bat daily
+
+================================================================================
+LOG FILES LOCATION
+================================================================================
+
+Main Application Logs:
+   Location: logs\newsletter.log
+   When: Every manual run and scheduled run
+   View: type logs\newsletter.log
+   Search errors: findstr /I "ERROR" logs\newsletter.log
+
+Task Scheduler Logs:
+   Location: logs\task-scheduler.log
+   When: Only when run via Task Scheduler
+   View: type logs\task-scheduler.log
+
+Windows Task Scheduler History:
+   Open: taskschd.msc
+   Find: AI Newsletter task
+   Right-click → View History
+
+Debug Logs:
+   Activate: python -m src.main --log-level DEBUG
+   Output: Very verbose, shows every step
+   Useful: Diagnosing collection issues
+
+================================================================================
+COMMON TASKS
+================================================================================
+
+ADD NEW NEWSLETTER SOURCE:
+───────────────────────────
+1. Edit: config/sources.yaml
+2. Add under 'newsletters' section:
+   - name: "Your Source Name"
+     url: "https://example.com/newsletter"
+3. Save file
+4. Run: python -m src.main --log-level INFO
+5. Next run will collect from new source
+
+REMOVE NEWSLETTER SOURCE:
+──────────────────────────
+1. Edit: config/sources.yaml
+2. Delete the corresponding entry
+3. Save file
+4. Run: python -m src.main --log-level INFO
+
+ADD NEW YOUTUBE CHANNEL:
+─────────────────────────
+1. Find channel ID (visit channel, copy from URL or use channelid.com)
+2. Edit: config/sources.yaml
+3. Add under 'youtube_channels' section:
+   - name: "Channel Name"
+     channel_id: "UCxxxxxxxxx"
+4. Save file
+5. Run: python -m src.main --log-level INFO
+
+CHANGE DELIVERY TIME:
+──────────────────────
+1. Open Task Scheduler
+2. Find "AI Newsletter" task
+3. Right-click → Properties
+4. Triggers tab → Edit trigger
+5. Change time under "Start at"
+6. Click OK
+
+CHANGE CONTENT WINDOW (Days):
+──────────────────────────────
+1. Edit: config/settings.yaml
+2. Find: window_days: 7
+3. Change to desired number: window_days: 30
+4. Save file
+5. Next run uses new window
+
+DISABLE AUTOMATIC SCHEDULING:
+──────────────────────────────
+1. Open Command Prompt as Administrator
+2. Run: schtasks /delete /tn "AI Newsletter" /f
+3. Task is removed from Windows Task Scheduler
+
+RE-ENABLE AUTOMATIC SCHEDULING:
+─────────────────────────────────
+1. Open Command Prompt as Administrator
+2. Navigate: cd C:\Users\Kashef\root.bmad\ai-newsletter
+3. Run: scripts\setup-task-scheduler.bat daily
+4. Task is recreated
+
+================================================================================
+FILE STRUCTURE
+================================================================================
+
+ai-newsletter/
+├── config/
+│   ├── sources.yaml          ← Newsletters and YouTube channels
+│   └── settings.yaml         ← Schedule and AI settings
+├── src/
+│   ├── main.py               ← Main pipeline orchestrator
+│   ├── database/
+│   ├── collectors/
+│   ├── delivery/
+│   ├── config/
+│   └── utils/
+├── scripts/
+│   └── setup-task-scheduler.bat  ← Schedule for automation
+├── logs/
+│   ├── newsletter.log        ← Application logs
+│   └── task-scheduler.log    ← Scheduled task logs
+├── data/
+│   └── newsletter.db         ← SQLite database (auto-created)
+├── .env                      ← Credentials (REQUIRED, CREATE FIRST)
+├── .env.example              ← Template for .env
+├── requirements.txt          ← Python dependencies
+├── PRD.md                    ← Product Requirements Document
+├── GETTING_STARTED.md        ← Detailed setup guide
+├── QUICK_REFERENCE.txt       ← This file
+├── README.md                 ← Project overview
+└── venv/                     ← Python virtual environment (auto-created)
+
+================================================================================
+TECH STACK
+================================================================================
+
+Language: Python 3.8+
+Web Framework: N/A (CLI-based)
+Database: SQLite3
+Message Broker: Telegram Bot API
+
+Libraries:
+   - feedparser (RSS parsing)
+   - requests (HTTP)
+   - beautifulsoup4 (HTML parsing)
+   - yt-dlp (YouTube scraping)
+   - youtube-transcript-api (Transcripts)
+   - python-telegram-bot (Telegram integration)
+   - python-dotenv (Environment variables)
+
+Operating System: Windows 10+
+Scheduler: Windows Task Scheduler
+
+================================================================================
+SUPPORT
+================================================================================
+
+Documentation Files:
+   - PRD.md: Full product specifications
+   - GETTING_STARTED.md: Detailed setup guide
+   - QUICK_REFERENCE.txt: This quick reference
+   - README.md: Project overview
+
+Logs:
+   - logs/newsletter.log: Application execution logs
+   - logs/task-scheduler.log: Scheduled task execution logs
+
+Troubleshooting:
+   1. Check logs for error messages
+   2. Verify .env credentials
+   3. Test with: python -m src.main --log-level DEBUG
+   4. Review GETTING_STARTED.md Troubleshooting section
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+IMMEDIATE (Next 5 minutes):
+   [ ] Create .env file with Telegram credentials
+   [ ] Run: python -m src.main --log-level INFO
+   [ ] Verify message received on Telegram
+
+WITHIN 30 MINUTES:
+   [ ] Review config/sources.yaml
+   [ ] Customize sources if desired
+   [ ] Review config/settings.yaml
+
+WITHIN 1 HOUR:
+   [ ] Run: scripts\setup-task-scheduler.bat daily
+   [ ] Verify task in Task Scheduler
+   [ ] Check logs\task-scheduler.log
+
+ONGOING:
+   [ ] Monitor logs daily
+   [ ] Check Telegram for daily messages
+   [ ] Add/remove sources as needed
+   [ ] Adjust schedule as desired
+
+================================================================================
+SUCCESS CRITERIA
+================================================================================
+
+✅ You'll know everything is working when:
+
+   1. .env file created with correct Telegram credentials
+   2. Manual run: python -m src.main succeeds (exit code 0)
+   3. Telegram receives message within 10 seconds
+   4. Newsletter contains 8+ article headlines with links
+   5. Newsletter contains 7+ YouTube videos with summaries
+   6. Task Scheduler "AI Newsletter" task exists and status is "Ready"
+   7. logs\newsletter.log shows "Status: SUCCESS"
+   8. Daily automatic messages arrive at configured time
+   9. No "blocked" or "error" messages appear in newsletter
+   10. Articles are unique (no duplicates)
+
+If all of above are ✅, system is fully operational!
+
+================================================================================
+QUICK START COMMAND SEQUENCE
+================================================================================
+
+Copy-paste these commands in order:
+
+# 1. Navigate to project
+cd C:\Users\Kashef\root.bmad\ai-newsletter
+
+# 2. Activate environment
+.\venv\Scripts\activate
+
+# 3. Install dependencies (if needed)
+pip install -r requirements.txt
+
+# 4. Create .env file with your credentials (edit in Notepad)
+# TELEGRAM_BOT_TOKEN=your_token
+# TELEGRAM_CHAT_ID=your_chat_id
+
+# 5. Run test
+python -m src.main --log-level INFO
+
+# 6. If successful, schedule it (run Command Prompt as Admin)
+scripts\setup-task-scheduler.bat daily
+
+# 7. Verify task created
+schtasks /query /tn "AI Newsletter" /v
+
+================================================================================
+END OF QUICK REFERENCE
+================================================================================
+
+For detailed information, see:
+   - GETTING_STARTED.md: Complete setup and configuration guide
+   - PRD.md: Full product requirements and specifications
+   - logs/newsletter.log: Execution logs and diagnostics
+
+Last Updated: 2025-11-24
+Status: Production Ready ✅

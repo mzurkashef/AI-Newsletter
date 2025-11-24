@@ -1,0 +1,33 @@
+[Unit]
+Description=AI Newsletter Generator
+Documentation=file://%I/docs/SCHEDULING.md
+After=network.target
+
+[Service]
+Type=oneshot
+User=newsletter
+Group=newsletter
+WorkingDirectory=/opt/ai-newsletter
+
+# Load environment from .env file
+EnvironmentFile=/opt/ai-newsletter/.env
+
+# Run the newsletter
+ExecStart=/opt/ai-newsletter/venv/bin/python -m src.main --log-level INFO
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=newsletter
+
+# Security settings
+PrivateTmp=true
+NoNewPrivileges=true
+
+# Resource limits (optional - adjust as needed)
+# MemoryLimit=500M
+# CPUQuota=50%
+# TimeoutStartSec=1h
+
+[Install]
+WantedBy=multi-user.target

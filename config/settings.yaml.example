@@ -1,0 +1,29 @@
+# AI Newsletter - Application Settings Configuration
+# Copy this file to settings.yaml and configure your settings
+
+# Delivery Schedule
+# delivery_day: 0=Monday, 1=Tuesday, ..., 6=Sunday
+# delivery_time: Time in 24-hour format (HH:MM)
+schedule:
+  delivery_day: 0  # Monday
+  delivery_time: "09:00"
+
+# Content Collection Settings
+# window_days: Number of days to look back for content (default: 7)
+# min_items_per_category: Minimum items required per category (default: 1)
+content:
+  window_days: 7
+  min_items_per_category: 1
+
+# AI Processing Settings
+# filter_threshold: Relevance threshold for filtering (0.0-1.0, default: 0.7)
+# max_categories: Maximum number of topic categories (default: 4)
+ai:
+  filter_threshold: 0.7
+  max_categories: 4
+
+
+
+
+
+

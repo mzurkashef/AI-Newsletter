@@ -1,0 +1,103 @@
+================================================================================
+              AI NEWSLETTER - HOW TO RUN THE APPLICATION
+================================================================================
+
+QUICK START (3 STEPS):
+================================================================================
+
+1. SETUP ENVIRONMENT
+   ─────────────────
+
+   a) Open Command Prompt or PowerShell
+
+   b) Navigate to project directory:
+      cd C:\Users\Kashef\root.bmad\ai-newsletter
+
+   c) Create Python virtual environment:
+      python -m venv venv
+
+   d) Activate virtual environment:
+      venv\Scripts\activate
+
+   e) Install dependencies:
+      pip install -r requirements.txt
+
+   Expected: (venv) prompt appears
+
+
+2. CONFIGURE APPLICATION
+   ──────────────────────
+
+   a) Create .env file from template:
+      copy .env.example .env
+
+   b) Edit .env file with your settings:
+      TELEGRAM_BOT_TOKEN=your_token_here
+      TELEGRAM_CHAT_ID=your_chat_id_here
+
+
+3. RUN APPLICATION
+   ────────────────
+
+   python -m src.main --log-level INFO
+
+   Expected: Logs show collection, processing, and delivery
+
+   Execution time: 6-12 minutes
+
+
+================================================================================
+              COMMAND REFERENCE
+================================================================================
+
+BASIC EXECUTION:
+   python -m src.main --log-level INFO
+
+TESTING:
+   pytest -v                           (Run all 889 tests)
+   pytest tests/test_data_cleanup.py   (Run specific test)
+   pytest -q                           (Quick summary only)
+
+VERIFICATION:
+   python --version                    (Check Python 3.11+)
+   python -c "import src.main; print('OK')"
+
+
+================================================================================
+              SCHEDULING (OPTIONAL - FOR PRODUCTION)
+================================================================================
+
+WINDOWS TASK SCHEDULER:
+   cd scripts
+   setup-task-scheduler.bat monday
+
+LINUX/MACOS (CRON):
+   bash scripts/setup-cron.sh monday
+
+GITHUB ACTIONS:
+   Push to repository (auto-configured)
+
+
+================================================================================
+              MONITORING & LOGS
+================================================================================
+
+View logs:
+   type logs\newsletter.log            (Windows)
+   tail -f logs/newsletter.log         (Linux/macOS)
+
+Check database:
+   sqlite3 data\newsletter.db
+
+View Telegram:
+   Check your Telegram chat for delivered message
+
+
+================================================================================
+                     START HERE!
+================================================================================
+
+(venv) C:\Users\Kashef\root.bmad\ai-newsletter> python -m src.main --log-level INFO
+
+For detailed guide: see QUICK_START.md
+For full docs: see PROJECT_COMPLETION.md
