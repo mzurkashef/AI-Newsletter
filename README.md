@@ -2,6 +2,9 @@
 
 An automated content aggregation and delivery system that collects AI-related articles from multiple newsletter sources and YouTube channels, processes them for quality, and delivers curated daily updates via Telegram.
 
+<img width="2752" height="1536" alt="AINL" src="https://github.com/user-attachments/assets/721461f2-1e51-4000-88ea-afefbeb08d9c" />
+
+
 ## Overview
 
 The AI Newsletter System is a fully automated pipeline that:
